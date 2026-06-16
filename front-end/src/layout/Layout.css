@@ -1,0 +1,81 @@
+/* ───────── Sidebar ───────── */
+.side-bar {
+  background: linear-gradient(180deg, #1d3c34 0%, #15302a 100%);
+  min-width: 220px;
+  padding-top: 0;
+  box-shadow: 4px 0 24px rgba(29, 60, 52, 0.18);
+  position: relative;
+}
+
+/* Brand */
+.sidebar-brand-text {
+  color: #f8f5f0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-brand.sidebar-brand {
+  padding: 22px 0 18px;
+  position: relative;
+}
+
+.sidebar-brand-text span {
+  position: relative;
+}
+
+/* Brand accent underline */
+.navbar-brand.sidebar-brand::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #e07a5f, #f2cc8f);
+}
+
+.sidebar-divider {
+  border-top: 1px solid rgba(248, 245, 240, 0.12);
+}
+
+/* Nav links */
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(248, 245, 240, 0.78);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-radius: 10px;
+  margin: 4px 10px;
+  padding: 10px 14px !important;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #ffffff;
+  background: rgba(224, 122, 95, 0.18);
+  transform: translateX(3px);
+}
+
+.navbar-dark .navbar-nav .nav-link:active,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: #ffffff;
+  background: rgba(224, 122, 95, 0.28);
+}
+
+/* ───────── Main body ───────── */
+.main-body {
+  margin: 24px 16px;
+}
+
+/* Mobile: sidebar becomes a top bar */
+@media (max-width: 45em) {
+  .side-bar {
+    min-width: 100%;
+    box-shadow: 0 4px 16px rgba(29, 60, 52, 0.18);
+  }
+  .navbar-brand.sidebar-brand::after { display: none; }
+  .main-body { margin: 16px 8px; }
+}
