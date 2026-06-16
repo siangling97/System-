@@ -2,7 +2,7 @@ import formatReservationDate from "./format-reservation-date";
 import formatReservationTime from "./format-reservation-time"; // Corrected import
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "https://restaurant-reservation-1-duek.onrender.com";
+  process.env.REACT_APP_API_BASE_URL || "https://system-sianglings-projects.vercel.app";
 
 /**
  * Defines the default headers for these functions to work with `json-server`
