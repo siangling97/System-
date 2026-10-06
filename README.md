@@ -25,8 +25,11 @@ Capstone project for Periodic Tables, a startup creating a reservation system fo
 ### Cancel a Reservation
 - Cancel booked reservations with confirmation prompt.
 
-## Test Result on My System
-(Include your test results here, potentially in a table format)
+## What I built
+This is my Thinkful capstone, built on Thinkful's starter repo (the project scaffold, tests, and CI workflow came with it). My work:
+- The React pages to create, edit, search, seat, and cancel reservations and to add tables, with one form component shared by the create and edit pages
+- The reservations and tables API in Express with Knex and PostgreSQL, including the validation rules
+- Seating and finishing a table, which update the table and the reservation in one database transaction
 
 ## Tools Used
 - Node.js
@@ -40,4 +43,4 @@ Capstone project for Periodic Tables, a startup creating a reservation system fo
 - CSS
 - Git
 
-You can access the deployed server https://system-ay7r.vercel.app/dashboard and the frontend https://system-ay7r.vercel.app/dashboard.
+Live demo: https://system-ay7r.vercel.app/dashboard
