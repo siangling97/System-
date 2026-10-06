@@ -31,7 +31,7 @@ function hasOnlyValidProperties(req, res, next) {
     (field) => !VALID_PROPERTIES.includes(field)
   );
   if (invalidProperties.length) {
-    next({ status: 400, message: `Invalid field(s): ${invalidProperties.join(", ")}` });
+    return next({ status: 400, message: `Invalid field(s): ${invalidProperties.join(", ")}` });
   }
   next();
 }
@@ -57,7 +57,7 @@ function hasProperties(...properties) {
 function tableNameHasValidLength(req, res, next) {
   const { table_name } = req.body.data;
   if (table_name.length < 2) {
-    next({ status: 400, message: "table_name must be at least 2 characters"});
+    return next({ status: 400, message: "table_name must be at least 2 characters"});
   }
   next();
 }
@@ -65,7 +65,7 @@ function tableNameHasValidLength(req, res, next) {
 function hasValidCapacity(req, res, next) {
   const { capacity } = req.body.data;
   if (capacity < 1 || typeof capacity !== "number") {
-    next({ status: 400, message: "table capacity must be at least 1 person" });
+    return next({ status: 400, message: "table capacity must be at least 1 person" });
   }
   next();
 }
