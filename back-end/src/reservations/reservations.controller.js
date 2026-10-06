@@ -59,7 +59,7 @@ function hasOnlyValidProperties(req, res, next) {
     (field) => !VALID_PROPERTIES.includes(field)
   );
   if (invalidProperties.length) {
-    next({ status: 400, message: `Invalid field(s): ${invalidProperties.join(", ")}`});
+    return next({ status: 400, message: `Invalid field(s): ${invalidProperties.join(", ")}`});
   }
   next();
 }
@@ -86,7 +86,7 @@ function hasValidDate(req, res, next) {
   const { data: { reservation_date } = {} } = req.body;
   const dateRegex = new RegExp(/(?<=\D|^)(?<year>\d{4})(?<sep>[^\w\s])(?<month>1[0-2]|0[1-9])\k<sep>(?<day>0[1-9]|[12][0-9]|(?<=11\k<sep>|[^1][4-9]\k<sep>)30|(?<=1[02]\k<sep>|[^1][13578]\k<sep>)3[01])(?=\D|$)/gm);
   if (!reservation_date.match(dateRegex)) {
-    next({ status: 400, message: "reservation_date must be a valid date"});
+    return next({ status: 400, message: "reservation_date must be a valid date"});
   }
   next();
 }
@@ -97,14 +97,14 @@ function hasValidTime(req, res, next) {
   if (reservation_time && reservation_time !== "" && reservation_time.match(timeRegex)) {
     next();
   } else {
-    next({ status: 400, message: "reservation_time must be a valid time"});
+    return next({ status: 400, message: "reservation_time must be a valid time"});
   }
 }
 
 function peopleIsNumber(req, res, next) {
   const { data: { people } = {} } = req.body;
   if (!Number.isInteger(people)) {
-    next({ status: 400, message: "people must be a number"});
+    return next({ status: 400, message: "people must be a number"});
   }
   next();
 }
@@ -121,7 +121,7 @@ function isNotTuesday(req, res, next) {
     1
   );
   if (numDate.getDay() === 2) {
-    next({ status: 400, message: "restaurant is closed on Tuesdays" });
+    return next({ status: 400, message: "restaurant is closed on Tuesdays" });
   } else {
     next();
   }
@@ -160,7 +160,7 @@ function isWithinBusinessHours(req, res, next) {
 function hasDefaultBookedStatus(req, res, next) {
   const { status } = req.body.data;
   if (status && status !== "booked") {
-    next({ status: 400, message: `A new reservation cannot have a status of ${status}` });
+    return next({ status: 400, message: `A new reservation cannot have a status of ${status}` });
   } else {
     next();
   }
@@ -182,7 +182,7 @@ function hasDefaultBookedStatus(req, res, next) {
  function isFinished(req, res, next) {
   const currentStatus = res.locals.reservation.status;
   if (currentStatus === "finished") {
-    next({ status: 400, message: "A finished reservation cannot be updated." });
+    return next({ status: 400, message: "A finished reservation cannot be updated." });
   } else {
     next();
   }
