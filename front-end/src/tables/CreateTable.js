@@ -8,20 +8,19 @@ function CreateTable() {
   const [error, setError] = useState(null);
   const [table, setTable] = useState({
     table_name: "",
-    capacity: 1, // Initialize capacity with a number
+    capacity: "", // Start empty so typing a number doesn't append to a default value
   });
 
   // Handlers //
   const handleChange = ({ target }) => {
-    const { name, value } = target;
-    setTable({ ...table, [name]: name === "capacity" ? Number(value) : value });
+    setTable({ ...table, [target.name]: target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const abortController = new AbortController();
-    createTable(table, abortController.signal)
+    createTable({ ...table, capacity: Number(table.capacity) }, abortController.signal)
       .then(() => history.push("/dashboard"))
       .catch((error) => setError(error));
 

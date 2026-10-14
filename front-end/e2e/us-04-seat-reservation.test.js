@@ -56,7 +56,7 @@ describe("US-04 - Seat reservation - E2E", () => {
         fullPage: true,
       });
 
-      await expect(page).toMatch(tableName);
+      await expect(page).toMatchTextContent(tableName);
     });
     test("omitting table_name and submitting does not create a new table", async () => {
       await page.type("input[name=capacity]", "3");
@@ -118,7 +118,7 @@ describe("US-04 - Seat reservation - E2E", () => {
         waitUntil: "networkidle0",
       });
 
-      const [cancelButton] = await page.$x(
+      const [cancelButton] = await page.$$("xpath/" +
         "//button[contains(translate(., 'ACDEFGHIJKLMNOPQRSTUVWXYZ', 'acdefghijklmnopqrstuvwxyz'), 'cancel')]"
       );
 
@@ -195,7 +195,7 @@ describe("US-04 - Seat reservation - E2E", () => {
       });
 
       expect(page.url()).toContain("/dashboard");
-      expect(page).toMatch(/occupied/i);
+      expect(page).toMatchTextContent(/occupied/i);
     });
 
     test("cannot seat reservation at Bar #1", async () => {

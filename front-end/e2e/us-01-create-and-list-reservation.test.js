@@ -57,7 +57,7 @@ describe("US-01 - Create and list reservations - E2E", () => {
         fullPage: true,
       });
 
-      await expect(page).toMatch(lastName);
+      await expect(page).toMatchTextContent(lastName);
     });
 
     test("canceling form returns to previous page", async () => {
@@ -66,7 +66,7 @@ describe("US-01 - Create and list reservations - E2E", () => {
         waitUntil: "networkidle0",
       });
 
-      const [cancelButton] = await page.$x(
+      const [cancelButton] = await page.$$("xpath/" +
         "//button[contains(translate(., 'ACDEFGHIJKLMNOPQRSTUVWXYZ', 'acdefghijklmnopqrstuvwxyz'), 'cancel')]"
       );
 

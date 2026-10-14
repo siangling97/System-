@@ -99,7 +99,7 @@ describe("US-08 - Change an existing reservation - E2E", () => {
           return response.url().includes("/reservations?date=");
         });
 
-        await page.waitForTimeout(500);
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         expect(await page.$(cancelButtonSelector)).toBeNull();
       });
@@ -147,7 +147,7 @@ describe("US-08 - Change an existing reservation - E2E", () => {
     });
 
     test("canceling form returns to the previous page", async () => {
-      const [cancelButton] = await page.$x(
+      const [cancelButton] = await page.$$("xpath/" +
         "//button[contains(translate(., 'ACDEFGHIJKLMNOPQRSTUVWXYZ', 'acdefghijklmnopqrstuvwxyz'), 'cancel')]"
       );
 
@@ -178,7 +178,7 @@ describe("US-08 - Change an existing reservation - E2E", () => {
       await firstNameInput.click({ clickCount: 3 });
       await firstNameInput.type("John");
 
-      const [submitButton] = await page.$x(
+      const [submitButton] = await page.$$("xpath/" +
         "//button[contains(translate(., 'ACDEFGHIJKLMNOPQRSTUVWXYZ', 'acdefghijklmnopqrstuvwxyz'), 'submit')]"
       );
 
@@ -203,7 +203,7 @@ describe("US-08 - Change an existing reservation - E2E", () => {
         fullPage: true,
       });
 
-      await expect(page).toMatch(/John/);
+      await expect(page).toMatchTextContent(/John/);
     });
   });
 });

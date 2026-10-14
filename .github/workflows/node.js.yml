@@ -4,12 +4,12 @@ on: [push, pull_request]
 
 jobs:
   test:
-
-    runs-on: ubuntu-latest
+    # Pinned so the upcoming ubuntu-latest switch to Ubuntu 26 can't break the Puppeteer tests unannounced.
+    runs-on: ubuntu-24.04
 
     services:
       postgres:
-        image: postgres:13-alpine
+        image: postgres:16-alpine
         ports:
           - 5432:5432
         env:
@@ -22,33 +22,28 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    env:
+      DATABASE_URL_TEST: postgresql://postgres:postgres@127.0.0.1:5432
+      NODE_ENV: test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - name: Use Node.js 24 (matches "engines" in package.json)
+        uses: actions/setup-node@v7
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 24.x
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            back-end/package-lock.json
+            front-end/package-lock.json
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-test-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-test-${{ env.cache-name }}-
-            ${{ runner.os }}-test-
-            ${{ runner.os }}-
+      # Ubuntu 24.04 blocks the user namespaces Chrome's sandbox needs; re-allow them so Puppeteer can launch.
+      - name: Allow Chrome sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
 
       - name: npm install
-        if: steps.frontend-node-cache.outputs.cache-hit != 'true'
         run: npm install
 
       - run: npm run build --if-present
@@ -56,20 +51,17 @@ jobs:
       - name: Test frontend
         run: npm run test:frontend
         env:
-          DATABASE_URL_TEST: postgresql://postgres:postgres@127.0.0.1:5432
-          NODE_ENV: test
+          # Point the app at the local test backend, not the live Vercel API it falls back to.
+          REACT_APP_API_BASE_URL: http://localhost:5001
 
       - name: Archive screenshots
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: screenshots
-          path: |
-            front-end/.screenshots
+          path: front-end/.screenshots
+          if-no-files-found: ignore
 
       - name: Test backend
         if: always()
         run: npm run test:backend
-        env:
-          DATABASE_URL_TEST: postgresql://postgres:postgres@127.0.0.1:5432
-          NODE_ENV: test

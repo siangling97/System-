@@ -51,7 +51,7 @@ describe("US-07 - Search reservations - E2E", () => {
         path: ".screenshots/us-07-search-reservations-submit-valid-after.png",
         fullPage: true,
       });
-      await expect(page).toMatch(/Tiger/);
+      await expect(page).toMatchTextContent(/Tiger/);
     });
 
     test("entering an non-existent phone number and submitting displays a No reservations found message", async () => {
@@ -75,7 +75,7 @@ describe("US-07 - Search reservations - E2E", () => {
           ".screenshots/us-07-search-reservations-submit-no-result-after.png",
         fullPage: true,
       });
-      await expect(page).toMatch(/No reservations found/);
+      await expect(page).toMatchTextContent(/No reservations found/);
     });
   });
 });
