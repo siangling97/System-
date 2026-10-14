@@ -1,6 +1,6 @@
 async function selectOptionByText(page, name, optionText) {
   const optionWaned = (
-    await page.$x(`//*[@name = "${name}"]/option[text() = "${optionText}"]`)
+    await page.$$("xpath/" + `//*[@name = "${name}"]/option[text() = "${optionText}"]`)
   )[0];
 
   const optionValue = await (

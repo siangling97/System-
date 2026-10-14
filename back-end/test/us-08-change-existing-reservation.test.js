@@ -25,7 +25,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "Mouse",
         last_name: "Whale",
         mobile_number: "1231231235",
-        reservation_date: "2026-12-30",
+        reservation_date: "2035-12-26",
         reservation_time: "18:00",
         people: 2,
       };
@@ -44,7 +44,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "Mouse",
         last_name: "Whale",
         mobile_number: "1231231235",
-        reservation_date: "2026-12-30",
+        reservation_date: "2035-12-26",
         reservation_time: "18:00",
         people: 2,
       };
@@ -80,7 +80,7 @@ describe("US-08 - Change an existing reservation", () => {
       const data = {
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "13:30",
         people: 3,
       };
@@ -99,7 +99,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "",
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "13:30",
         people: 3,
       };
@@ -117,7 +117,7 @@ describe("US-08 - Change an existing reservation", () => {
       const data = {
         first_name: "first",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "13:30",
         people: 3,
       };
@@ -136,7 +136,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "13:30",
         people: 3,
       };
@@ -154,7 +154,7 @@ describe("US-08 - Change an existing reservation", () => {
       const data = {
         first_name: "first",
         last_name: "last",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "13:30",
         people: 3,
       };
@@ -173,7 +173,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "last",
         mobile_number: "",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "13:30",
         people: 3,
       };
@@ -247,7 +247,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         people: 2,
       };
 
@@ -264,7 +264,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "",
         people: 2,
       };
@@ -282,7 +282,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "not-a-time",
         people: 2,
       };
@@ -301,7 +301,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "17:30",
       };
 
@@ -319,7 +319,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "17:30",
         people: 0,
       };
@@ -338,7 +338,7 @@ describe("US-08 - Change an existing reservation", () => {
         first_name: "first",
         last_name: "last",
         mobile_number: "800-555-1212",
-        reservation_date: "2025-01-01",
+        reservation_date: "2035-01-03",
         reservation_time: "17:30",
         people: "2",
       };

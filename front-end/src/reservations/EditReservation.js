@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { readReservation, updateReservation } from "../utils/api";
 import ReservationForm from "./ReservationForm";
 import ErrorAlert from "../layout/ErrorAlert";
+import formatReservationDate from "../utils/format-reservation-date";
+import formatReservationTime from "../utils/format-reservation-time";
 
 function EditReservation() {
   const history = useHistory();
@@ -14,7 +16,7 @@ function EditReservation() {
     last_name: "",
     mobile_number: "",
     reservation_date: "",
-    reservation_time: "12:00 PM", // Default value in 12-hour format with AM/PM
+    reservation_time: "",
     people: 1, // Default value as a number
   });
 
@@ -25,10 +27,8 @@ function EditReservation() {
     async function loadReservation() {
       try {
         const response = await readReservation(Number(reservation_id), abortController.signal);  // Pass the signal
-        setReservation({
-          ...response,
-          reservation_time: formatTime12Hour(response.reservation_time), // Ensure the time is in 12-hour format
-        });
+        // The date and time inputs only display YYYY-MM-DD and HH:MM values
+        setReservation(formatReservationTime(formatReservationDate(response)));
       } catch (error) {
         if (error.name !== "AbortError") { // Only set error if not an abort error
           setError(error);
@@ -40,15 +40,6 @@ function EditReservation() {
 
     return () => abortController.abort();  // Abort the fetch if the component unmounts
   }, [reservation_id]);
-
-  // Function to ensure the time is formatted as 12-hour time with AM/PM
-  function formatTime12Hour(timeString) {
-    const [hour, minute] = timeString.split(":");
-    const hourNumber = parseInt(hour);
-    const ampm = hourNumber >= 12 ? "PM" : "AM";
-    const formattedHour = hourNumber % 12 || 12; // Convert to 12-hour format
-    return `${formattedHour}:${minute} ${ampm}`;
-  }
 
   // Handlers //
   const handleChange = ({ target }) => {
